@@ -1,78 +1,80 @@
 "use client ";
 import { getAlbumByAlbumId } from "@/helpers/apiCalls/albumApi";
 import { getArtistsByArtistId } from "@/helpers/apiCalls/artistApi";
+import { authTokensAtom } from "@/store/atoms";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 type Props = {
 	albumId: string;
+	albumImage: string;
+	albumName: string;
 	artistIds: string[];
+	artistsName: string[];
 	name: string;
 	popularity: number;
 	id: string;
+	included?: boolean;
+	setIncluded: (id: string, included: boolean) => void;
 };
 
 const SongCard = (props: Props) => {
-	const access_token = localStorage.getItem("playgen_access_token") as string;
-	const { albumId, artistIds, name, popularity, id } = props;
-	const [artist, setArtist] = useState<any>();
-	const [album, setAlbum] = useState<any>();
-	const setTrackArt = async () => {
-		const artist = await getArtistsByArtistId({
-			id: artistIds[0],
-			access_token: access_token,
-		});
-		const album = await getAlbumByAlbumId({
-			id: albumId,
-			access_token: access_token,
-		});
+	const authTokens = useRecoilValue(authTokensAtom);
+	const access_token = authTokens?.accessToken as string;
+	const {
+		albumId,
+		artistIds,
+		name,
+		popularity,
+		id,
+		albumImage,
+		albumName,
+		artistsName,
+	} = props;
 
-		setAlbum(album);
-		setArtist(artist);
+	const [isChecked, setIsChecked] = useState<boolean>(props.included || true);
+
+	const handleCheck = () => {
+		setIsChecked(!isChecked);
+		props.setIncluded(id, !isChecked);
 	};
 
-	useEffect(() => {
-		setTrackArt();
-	}, []);
-
 	return (
-		<div className="w-full rounded-md bg-background text-foreground flex justify-between md:h-20 text-center">
+		<button
+			onClick={() => handleCheck()}
+			className="card card-side bg-transparent card-bordered h-16 overflow-hidden md:overflow-auto grid grid-cols-5 grid-flow-row relative shrink-0"
+		>
+			<input
+				key={props.id}
+				checked={isChecked}
+				onChange={() => handleCheck()}
+				type="checkbox"
+				className="checkbox-primary checkbox checkbox-xs rounded-xl absolute bottom-0 right-0 z-10"
+			/>
 			{/* album art  */}
-			<div className="size-16 overflow-hidden bg-green-300 my-auto ">
-				{album && (
-					<Image
-						src={album?.images[0]?.url || "/unknown.png"}
-						alt={album?.name as string}
-						height={200}
-						width={200}
-					/>
-				)}
-			</div>
+			<figure className="relative mb-auto h-16 ">
+				<img
+					src={albumImage || "/unknown.png"}
+					alt={albumName as string}
+					className="object-cover h-16"
+				/>
+			</figure>
 
 			{/* song info  */}
-			<div className="flex flex-col md:gap-1 mx-auto">
-				<h1 className="text-md">{name}</h1>
-				{artist && album && (
-					<>
-						<h2 className="text-xs">{artist.name}</h2>
-						<h2 className="text-xs">{album.name}</h2>
-					</>
-				)}
-				<h3 className="text-xs">obscurity: {100 - popularity}%</h3>
-			</div>
 
-			{/* artist photo  */}
-			<div className="size-16 rounded-full overflow-hidden my-auto">
-				{artist && (
-					<Image
-						src={artist?.images[0]?.url || "/unknown.png"}
-						alt={artist.artistName}
-						height={200}
-						width={200}
-					/>
-				)}
-			</div>
-		</div>
+			<div className=" text-xs font-light ">{name}</div>
+
+			<h2 className="text-xs font-extralight opacity-90">
+				{artistsName.join(", ")}
+			</h2>
+
+			<h2 className="text-xs font-extralight opacity-80">{albumName}</h2>
+
+			<h3 className="text-xs font-extralight opacity-60">
+				obscurity: {100 - popularity}%
+			</h3>
+		</button>
 	);
 };
 

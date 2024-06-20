@@ -1,6 +1,7 @@
 "use client";
 import axios, { AxiosRequestConfig } from "axios";
 import { sha256, generateRandomString } from "./serverAuthentication";
+import { access, accessSync } from "fs";
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string;
 const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI as string;
 const scope = `user-read-private 
@@ -89,15 +90,22 @@ export const getToken = async (code: string) => {
 		}
 
 		const data = await response.data;
-		console.log(data);
+		console.log("auth token data", data);
 
 		localStorage.setItem("playgen_access_token", data.access_token);
 		localStorage.setItem("playgen_expires_in", data.expires_in);
 		localStorage.setItem("playgen_refresh_token", data.refresh_token);
 		localStorage.setItem("playgen_scopes", data.scope);
 		console.log(data.access_token);
+
+		return {
+			accessToken: data.access_token,
+			refreshToken: data.refresh_token,
+			expiresIn: data.expires_in,
+			scopes: data.scope,
+		};
 	} catch (err) {
 		console.error("Token exchange error:", err);
-		return ""; // Or handle the error differently
+		return null; // Or handle the error differently
 	}
 };

@@ -98,7 +98,8 @@ export const getSavedTracksBetweenMonths = async (props: {
 	if (!parsedStartDate.success || !parsedEndDate.success) {
 		throw new Error("Invalid start or end date format. Expected YYYY-MM-DD");
 	}
-	let requiredTracks: string[] = [];
+	let requiredTrackUris: string[] = [];
+	let requiredTracks: any[] = [];
 
 	//Fix Bruteforce approach:
 	for (let i = 0; i <= 50; i++) {
@@ -141,14 +142,16 @@ export const getSavedTracksBetweenMonths = async (props: {
 		}
 
 		goodTracks = goodTracks.map((track: any, index: number) => {
-			requiredTracks.push("spotify:track:" + track?.track?.id || "");
+			requiredTrackUris.push("spotify:track:" + track?.track?.id || "");
+			requiredTracks.push(track?.track);
+
 			return track.track.id;
 		});
 		console.log("required tracks", requiredTracks);
 
-		if (!nextIterationNeeded) return requiredTracks;
+		if (!nextIterationNeeded) return { requiredTrackUris, requiredTracks };
 	}
 	//Test function
 
-	return requiredTracks;
+	return { requiredTrackUris, requiredTracks };
 };
