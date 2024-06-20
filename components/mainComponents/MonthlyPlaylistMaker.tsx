@@ -74,6 +74,11 @@ const MonthlyPlaylistMaker = (props: Props) => {
 		if (access_token) {
 			const currentUser = await getMyDetails(access_token);
 			const currentUserId = currentUser.id;
+			toast({
+				title: "making your monthly playlist",
+				description: `check your playlists in a minute`,
+				duration: 5000,
+			});
 
 			if (includedTracks.length === 0) {
 				toast({
@@ -98,7 +103,22 @@ const MonthlyPlaylistMaker = (props: Props) => {
 					uris: includedTracks,
 					postion: 0,
 				});
+				if (!includedTracks) {
+					toast({
+						title: "No tracks found",
+						description: `sad sad`,
+						duration: 5000,
+					});
+				} else {
+					toast({
+						title: "Playlist created",
+						description: `fuck off`,
+						duration: 5000,
+					});
+				}
 			}
+		} else {
+			showLoginToast();
 		}
 	};
 
