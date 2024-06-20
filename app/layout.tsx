@@ -24,10 +24,10 @@ export default function RootLayout({
 	return (
 		<RecoilProvider>
 			<html lang="en">
-				<body className={oswald.className}>
+				<body className={`${oswald.className} bg-black`}>
 					<Navbar />
 					<Toaster />
-					{children}
+					<div className="pt-20">{children}</div>
 				</body>
 			</html>
 		</RecoilProvider>

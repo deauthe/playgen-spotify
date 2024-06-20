@@ -1,28 +1,35 @@
 "use client";
 import React from "react";
 import { redirect_to_authorize } from "@/helpers/auth/authentication";
-import { useRecoilState } from "recoil";
-import { authTokensAtom, AuthTokensType } from "@/store/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+	AuthStatus,
+	AuthStatusAtom,
+	authTokensAtom,
+	AuthTokensType,
+} from "@/store/atoms";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
+import { cn } from "@/lib/utils";
 
-const AuthButton = () => {
+const AuthButton = ({ className }: { className?: string }) => {
+	const setAuthState = useSetRecoilState(AuthStatusAtom);
 	const router = useRouter();
-	const [authTokenState, setAuthTokenState] =
-		useRecoilState<AuthTokensType>(authTokensAtom);
+	const { user, loggedIn } = useUser();
 
 	const handleLogIn = async () => {
 		await redirect_to_authorize();
 	};
 	const handleLogout = async () => {
 		localStorage.removeItem("playgen_access_token");
-		setAuthTokenState((prev) => ({ ...prev, accessToken: null }));
 		router.refresh();
+		setAuthState(AuthStatus.Unauthenticated);
 	};
 
-	if (authTokenState.accessToken) {
+	if (loggedIn === AuthStatus.Authenticated) {
 		return (
 			<button
-				className="btn btn-primary rounded-full btn-sm mx-auto my-2"
+				className={cn("btn rounded-full btn-md mx-auto", className)}
 				onClick={handleLogout}
 			>
 				logout
@@ -32,7 +39,7 @@ const AuthButton = () => {
 
 	return (
 		<button
-			className="btn btn-primary rounded-full btn-sm mx-auto my-2"
+			className={cn("btn rounded-full btn-md mx-auto ", className)}
 			onClick={handleLogIn}
 		>
 			login

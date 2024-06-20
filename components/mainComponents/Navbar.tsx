@@ -39,7 +39,7 @@ const Navbar = (props: Props) => {
 				className={` rounded-full relative ${
 					show
 						? "bg-primary mt-2 text-primary-content border-primary-content border-[1px]"
-						: "bg-transparent mt-1 text-primary"
+						: "bg-black/70 mt-1 text-primary"
 				} items-center w-full flex justify-between transition-all duration-500 md:px-5 px-2 py-1`}
 			>
 				<div className="flex gap-2 items-center ml-5">
@@ -54,7 +54,21 @@ const Navbar = (props: Props) => {
 				</div>
 
 				<div className="flex flex-row gap-1 my-auto w-fit  h-fit ">
-					<div className="md:size-14 size-8 overflow-hidden rounded-full my-auto ">
+					<div className="  flex items-center gap-2   ">
+						<LogInButton
+							className={`${
+								show ? "bg-black text-primary" : "bg-primary text-black"
+							} border-none mr-2`}
+						/>
+					</div>
+
+					{loggedIn === AuthStatus.Authenticated && user && (
+						<div className=" flex-col text-right my-auto hidden md:flex">
+							<h1 className=" text-xs">{user.display_name}</h1>
+							<h2 className="text-xs">followers {user.followers?.total}</h2>
+						</div>
+					)}
+					<div className="md:size-12 size-8 overflow-hidden rounded-full my-auto ">
 						{loggedIn === AuthStatus.Authenticated && user && (
 							<Image
 								alt="user"
@@ -66,15 +80,6 @@ const Navbar = (props: Props) => {
 							/>
 						)}
 					</div>
-					{loggedIn === AuthStatus.Authenticated && user && (
-						<div className=" flex-col text-right my-auto hidden md:flex">
-							<h1 className=" text-xs">{user.display_name}</h1>
-							<h2 className="text-xs">followers {user.followers?.total}</h2>
-						</div>
-					)}
-				</div>
-				<div className="  flex items-center gap-2   ">
-					<LogInButton />
 				</div>
 			</div>
 		</div>

@@ -6,7 +6,7 @@ import SongCard from "../Cards/SongCard";
 import { boolean } from "zod";
 import { useRecoilValue } from "recoil";
 import { authTokensAtom } from "@/store/atoms";
-import { toast } from "../ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import { loginToastOptions } from "@/helpers/utilityFunctions";
 
 export default function TopItemsSection() {
@@ -18,6 +18,7 @@ export default function TopItemsSection() {
 	const [tracks, setTracks] = useState<any>();
 	const [includedIds, setIncludedIds] = useState<string[]>([]);
 	const [artists, setArtists] = useState<any>();
+	const toast = useToast();
 	const setIncluded = (id: string, included: boolean) => {
 		if (included) {
 			setIncludedIds([...includedIds, id]);
@@ -29,7 +30,6 @@ export default function TopItemsSection() {
 	};
 
 	const getTopItems = async () => {
-		if (!access_token) toast(loginToastOptions);
 		const props: topItemsProps = {
 			access_token,
 			limit: 20,
@@ -37,7 +37,6 @@ export default function TopItemsSection() {
 			time_range: timeRange,
 			type: type,
 		};
-		console.log("the props", props);
 
 		const items = await getMyTopItems(props);
 		if (props.type == "artists") {
@@ -51,7 +50,6 @@ export default function TopItemsSection() {
 
 	React.useEffect(() => {
 		getTopItems();
-		console.log("inside rerender");
 	}, [access_token]);
 
 	React.useEffect(() => {}, [type, timeRange]);
@@ -67,7 +65,7 @@ export default function TopItemsSection() {
 					<SelectType onChange={setType} />
 					<SelectTimeRange onChange={setTimerange} />
 					<button
-						className="rounded-full btn btn-sm btn-primary uppercase"
+						className="rounded-full btn btn-md btn-primary uppercase"
 						onClick={getTopItems}
 					>
 						find
@@ -108,7 +106,7 @@ export default function TopItemsSection() {
 export function SelectType(props: { onChange: any }) {
 	return (
 		<select
-			className="select select-primary bg-transparent select-sm rounded-full"
+			className="select select-primary bg-transparent select-md rounded-full"
 			onChange={(e) => props.onChange(e.target.value)}
 		>
 			<option disabled selected>
@@ -123,7 +121,7 @@ export function SelectType(props: { onChange: any }) {
 export function SelectTimeRange(props: { onChange: any }) {
 	return (
 		<select
-			className="select select-primary bg-transparent select-sm rounded-full"
+			className="select select-primary bg-transparent select-md rounded-full"
 			onChange={(e) => props.onChange(e.target.value)}
 		>
 			<option disabled selected>

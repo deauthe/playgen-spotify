@@ -10,7 +10,6 @@ const CallBack = () => {
 	const [currentToken, setCurrentToken] =
 		useRecoilState<AuthTokensType>(authTokensAtom);
 	useEffect(() => {
-		const currentToken = {};
 		const args = new URLSearchParams(window.location.search);
 		const code = args.get("code");
 

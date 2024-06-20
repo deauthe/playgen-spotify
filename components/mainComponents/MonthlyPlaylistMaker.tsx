@@ -22,6 +22,7 @@ import {
 } from "@/helpers/apiCalls/playlistApi";
 import { useRecoilValue } from "recoil";
 import { authTokensAtom } from "@/store/atoms";
+import { useUser } from "@/hooks/useUser";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ const MonthlyPlaylistMaker = (props: Props) => {
 	const [visibleTracks, setVisibleTracks] = useState<string[]>([]); //full tracks
 	const [includedTracks, setIncludedTracks] = useState<string[]>([]); //spotify URIs
 	const [month, setMonth] = useState<number>(1);
+	const { user, loggedIn } = useUser();
 	const [count, setCount] = useState(0);
 	const showLoginToast = () => {
 		toast(loginToastOptions);
@@ -49,7 +51,6 @@ const MonthlyPlaylistMaker = (props: Props) => {
 	const previewPlaylist = async () => {
 		const startDate = getFormattedDate(month);
 		const endDate = getFormattedDate(month + 1);
-		console.log("top level end date", startDate, " ", endDate);
 
 		if (access_token) {
 			const { requiredTrackUris, requiredTracks } =
@@ -58,7 +59,6 @@ const MonthlyPlaylistMaker = (props: Props) => {
 					endDate,
 					startDate,
 				});
-			console.log();
 
 			setVisibleTracks(requiredTracks);
 			setIncludedTracks(requiredTrackUris);
@@ -95,7 +95,6 @@ const MonthlyPlaylistMaker = (props: Props) => {
 					userId: currentUserId,
 				});
 				newPlaylistId = newPlaylistId.id;
-				console.log("tracks to put in the monthly playlist", includedTracks);
 
 				addItemsToAPlaylist({
 					access_token,
@@ -122,9 +121,8 @@ const MonthlyPlaylistMaker = (props: Props) => {
 		}
 	};
 
-	useEffect(() => {
-		console.log("new included tracks", includedTracks);
-	}, [includedTracks]);
+	useEffect(() => {}, [includedTracks]);
+
 	return (
 		<div className="flex flex-col items-center justify-center w-full min-h-screen md:px-20 px-5">
 			<h1 className="text-5xl font-extrabold uppercase bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text p-3 text-center">
@@ -133,13 +131,13 @@ const MonthlyPlaylistMaker = (props: Props) => {
 			<div className="flex flex-col gap-3 items-center my-5">
 				<SelectMonth onValueChange={setMonth} />
 				<button
-					className="btn btn-primary rounded-full btn-sm"
+					className="btn btn-primary rounded-full btn-md"
 					onClick={makeMonthlyPlaylists}
 				>
 					Make Monthly Playlist
 				</button>
 				<button
-					className="btn btn-primary rounded-full btn-sm"
+					className="btn btn-primary rounded-full btn-md"
 					onClick={previewPlaylist}
 				>
 					preview songs
@@ -173,13 +171,15 @@ export default MonthlyPlaylistMaker;
 export function SelectMonth(props: { onValueChange: any }) {
 	return (
 		<select
-			className="select select-primary bg-transparent select-sm rounded-full"
+			className="select select-primary select-text select-md md:select-md rounded-full bg-transparent"
 			onChange={(e) => props.onValueChange(Number(e.target.value))}
 		>
 			<option disabled selected>
 				Select a month
 			</option>
-			<option value="1">January</option>
+			<option value="1" className="">
+				January
+			</option>
 			<option value="2">February</option>
 			<option value="3">March</option>
 			<option value="4">April</option>
