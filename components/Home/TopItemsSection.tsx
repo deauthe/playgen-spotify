@@ -72,7 +72,7 @@ export default function TopItemsSection() {
 					</button>
 				</div>
 
-				<div className="bg-black w-full h-[500px] md:h-full rounded-md overflow-y-auto flex flex-col gap-1 overflow-x-clip py-1 md:grid md:grid-cols-3 lg:grid-cols-4 mb-10">
+				<div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 lg:max-h-[600px] md:max-h-[500px] max-h-[500px] overflow-y-auto ">
 					{type == "artists" &&
 						artists &&
 						artists.map((artist: any, index: number) => {
