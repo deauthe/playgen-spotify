@@ -5,6 +5,7 @@ export default function Home() {
 	return (
 		<main className="flex flex-col min-h-screen bg-black w-screen ">
 			<MonthlyPlaylistMaker />
+			<hr className="mx-10 my-5" />
 			<TopItemsSection />
 		</main>
 	);

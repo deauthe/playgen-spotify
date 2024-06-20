@@ -68,7 +68,7 @@ const Navbar = (props: Props) => {
 							<h2 className="text-xs">followers {user.followers?.total}</h2>
 						</div>
 					)}
-					<div className="md:size-12 size-8 overflow-hidden rounded-full my-auto ">
+					<div className="md:size-12 size-10 overflow-hidden rounded-full my-auto ">
 						{loggedIn === AuthStatus.Authenticated && user && (
 							<Image
 								alt="user"
