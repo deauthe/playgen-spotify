@@ -17,10 +17,10 @@ export interface AuthTokensType {
 export const authTokensAtom = atom<AuthTokensType>({
 	key: "authTokens",
 	default: {
-		accessToken: localStorage.getItem("playgen_access_token") || null,
-		refreshToken: localStorage.getItem("playgen_refresh_token") || null,
-		scopes: localStorage.getItem("playgen_scopes") || null,
-		expires_in: localStorage.getItem("playgen_expires_in") || null,
+		accessToken: null,
+		refreshToken: null,
+		scopes: null,
+		expires_in: null,
 	},
 });
 
