@@ -6,6 +6,8 @@ import SongCard from "../Cards/SongCard";
 import { boolean } from "zod";
 import { useRecoilValue } from "recoil";
 import { authTokensAtom } from "@/store/atoms";
+import { toast } from "../ui/use-toast";
+import { loginToastOptions } from "@/helpers/utilityFunctions";
 
 export default function TopItemsSection() {
 	const [type, setType] = useState<"tracks" | "artists">("tracks");
@@ -27,6 +29,7 @@ export default function TopItemsSection() {
 	};
 
 	const getTopItems = async () => {
+		if (!access_token) toast(loginToastOptions);
 		const props: topItemsProps = {
 			access_token,
 			limit: 20,
