@@ -1,37 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Spotify Playlist Service
+
+This project is a Spotify service that helps you create a monthly playlist according to the month you select and your liked songs in that month. It also lets you know how obscure a song is based on its popularity.
+
+## Features
+
+- **Monthly Playlist Creation**: Generate playlists for any month based on your liked songs.
+- **Song Obscurity Indicator**: Discover how obscure a song is with popularity metrics.
+- **Authentication**: Secure authentication using Spotify OAUTH PKCE flow.
+- **State Management**: Efficient state management with Recoil.
+- **Next.js with Tailwind CSS**: Styled using daisyUI and shadCn components for a modern UI.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js
+- npm or yarn
+- Spotify Developer Account
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
+git clone https://github.com/your-username/spotify-playlist-service.git
+cd spotify-playlist-service
+
+2.Insall dependencies: npm i
+
+3.Create a .env.local file in the root directory and add your Spotify Client ID and Client Secret:
+NEXT_PUBLIC_CLIENT_ID=your_spotify_client_id
+NEXT_PUBLIC_CLIENT_SECRET=your_spotify_client_secret
+NEXT_PUBLIC_REDIRECT_URI = http://localhost:3000/callback
+NEXT_PUBLIC_JWT_SECRET=kamwdlkanwlkam
+
+4.Start the development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+Technologies Used
+Next.js: React framework for server-side rendering and static site generation.
+Tailwind CSS: Utility-first CSS framework.
+daisyUI: Tailwind CSS components.
+shadCn: Additional Tailwind CSS components.
+Recoil: State management for React.
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# playgen_spotify
