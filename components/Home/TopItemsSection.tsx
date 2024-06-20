@@ -72,7 +72,7 @@ export default function TopItemsSection() {
 					</button>
 				</div>
 
-				<div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 lg:max-h-[600px] md:max-h-[500px] max-h-[500px] overflow-y-auto ">
+				<div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 lg:max-h-[600px] md:max-h-[500px] max-h-[500px] overflow-y-auto card card-bordered border-opacity-35">
 					{type == "artists" &&
 						artists &&
 						artists.map((artist: any, index: number) => {

@@ -143,7 +143,7 @@ const MonthlyPlaylistMaker = (props: Props) => {
 					preview songs
 				</button>
 			</div>
-			<div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 lg:max-h-[700px] md:max-h-[600px] max-h-[500px] overflow-y-auto ">
+			<div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 lg:max-h-[700px] md:max-h-[600px] max-h-[500px] overflow-y-auto card card-bordered border-opacity-35">
 				{visibleTracks &&
 					visibleTracks.map((track: any, index: number) => {
 						return (
