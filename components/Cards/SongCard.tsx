@@ -41,7 +41,10 @@ const SongCard = (props: Props) => {
 	};
 
 	return (
-		<button onClick={() => handleCheck()}>
+		<button
+			onClick={() => handleCheck()}
+			className="card card-side bg-transparent card-bordered h-16 overflow-hidden md:overflow-auto grid grid-cols-5 grid-flow-row relative shrink-0"
+		>
 			<input
 				key={props.id}
 				checked={isChecked}

@@ -127,7 +127,7 @@ const MonthlyPlaylistMaker = (props: Props) => {
 	}, [includedTracks]);
 	return (
 		<div className="flex flex-col items-center justify-center w-full min-h-screen md:px-20 px-5">
-			<h1 className="text-5xl font-extrabold uppercase bg-gradient-to-r from-accent to-popover text-transparent bg-clip-text p-3 text-center">
+			<h1 className="text-5xl font-extrabold uppercase bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text p-3 text-center">
 				make a monthly playlist
 			</h1>
 			<div className="flex flex-col gap-3 items-center my-5">

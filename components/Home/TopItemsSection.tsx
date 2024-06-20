@@ -58,7 +58,7 @@ export default function TopItemsSection() {
 
 	return (
 		<div className="flex flex-col gap-5 w-full md:px-20 px-5 min-h-screen my-auto items-center mb-10">
-			<h1 className="text-5xl font-extrabold uppercase bg-gradient-to-r from-accent to-popover text-transparent bg-clip-text p-3 ">
+			<h1 className="text-5xl font-extrabold uppercase bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text p-3 ">
 				get your top tracks/artists
 			</h1>
 
