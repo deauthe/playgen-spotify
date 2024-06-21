@@ -90,6 +90,7 @@ export default function TopItemsSection() {
 									artistIds={track.artists.map((artist: any) => artist.id)}
 									artistsName={track.artists.map((artist: any) => artist.name)}
 									id={track.id}
+									uri={track.uri}
 									name={track.name}
 									popularity={track.popularity}
 									included={true}
