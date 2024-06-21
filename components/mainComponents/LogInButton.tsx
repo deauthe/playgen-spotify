@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { redirect_to_authorize } from "@/helpers/auth/authentication";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
@@ -25,6 +25,10 @@ const AuthButton = ({ className }: { className?: string }) => {
 		router.refresh();
 		setAuthState(AuthStatus.Unauthenticated);
 	};
+
+	useEffect(() => {
+		console.log("status from navbar", loggedIn, user);
+	}, [loggedIn, user]);
 
 	if (loggedIn === AuthStatus.Authenticated) {
 		return (

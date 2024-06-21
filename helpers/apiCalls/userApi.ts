@@ -114,8 +114,6 @@ export const getSavedTracksBetweenMonths = async (props: {
 
 		//sorting tracks that lie in between preferred dates
 		let goodTracks = currTracks?.filter((track: any, index: number) => {
-			console.log("reaching here");
-
 			let { isBetween, shouldContinue } = isDateBetween({
 				timestamp: track?.added_at,
 				startDate,

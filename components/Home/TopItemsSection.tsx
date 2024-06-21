@@ -49,7 +49,7 @@ export default function TopItemsSection() {
 	};
 
 	React.useEffect(() => {
-		getTopItems();
+		if (access_token && access_token.length > 0) getTopItems();
 	}, [access_token]);
 
 	React.useEffect(() => {}, [type, timeRange]);

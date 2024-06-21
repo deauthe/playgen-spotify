@@ -7,13 +7,16 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdArrowDropdown } from "react-icons/io";
 import LogInButton from "./LogInButton";
 import { CiBurger } from "react-icons/ci";
-import { AuthStatus } from "@/store/atoms";
+import { AuthStatus, authTokensAtom } from "@/store/atoms";
 import Link from "next/link";
+import { useRecoilState } from "recoil";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
 	const { user, loggedIn } = useUser();
+	const [authToken, setAuthToken] = useRecoilState(authTokensAtom);
+
 	const [show, setShow] = useState<boolean>(false); //to show navbar on top or with a background
 
 	const controlNavbar = () => {
@@ -25,6 +28,12 @@ const Navbar = (props: Props) => {
 	};
 
 	useEffect(() => {
+		setAuthToken({
+			accessToken: localStorage.getItem("playgen_access_token"),
+			refreshToken: localStorage.getItem("playgen_refresh_token"),
+			expires_in: localStorage.getItem("playgen_expires_in"),
+			scopes: localStorage.getItem("playgen_scopes"),
+		});
 		window.addEventListener("scroll", controlNavbar);
 		return () => {
 			window.removeEventListener("scroll", controlNavbar);

@@ -15,6 +15,7 @@ type Props = {
 	name: string;
 	popularity: number;
 	id: string;
+	uri: string;
 	included?: boolean;
 	setIncluded: (id: string, included: boolean) => void;
 };
@@ -28,6 +29,7 @@ const SongCardHorizontal = (props: Props) => {
 		name,
 		popularity,
 		id,
+		uri,
 		albumImage,
 		albumName,
 		artistsName,
@@ -37,7 +39,7 @@ const SongCardHorizontal = (props: Props) => {
 
 	const handleCheck = () => {
 		setIsChecked(!isChecked);
-		props.setIncluded(id, !isChecked);
+		props.setIncluded(uri, !isChecked);
 	};
 
 	return (
@@ -87,6 +89,7 @@ const SongCardVertical = (props: Props) => {
 		name,
 		popularity,
 		id,
+		uri,
 		albumImage,
 		albumName,
 		artistsName,
@@ -96,7 +99,7 @@ const SongCardVertical = (props: Props) => {
 
 	const handleCheck = () => {
 		setIsChecked(!isChecked);
-		props.setIncluded(id, !isChecked);
+		props.setIncluded(uri, !isChecked);
 	};
 
 	return (
