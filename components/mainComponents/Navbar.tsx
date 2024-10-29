@@ -56,7 +56,9 @@ const Navbar = (props: Props) => {
 					<Link href="https://github.com/deauthe/playgen-spotify">
 						<IoLogoGithub className="md:text-6xl text-4xl my-auto hover:scale-105 active:scale-90 transition-all duration-200" />
 					</Link>
-					<ArrowLeftSquare className="text-secondary" />
+					<ArrowLeftSquare
+						className={`${show ? "text-black/50" : "text-secondary/70"}`}
+					/>
 				</div>
 				<div className="flex gap-2 items-center ml-5">
 					<Link href="/">
