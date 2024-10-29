@@ -4,12 +4,13 @@ import { useUser } from "@/hooks/useUser";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoLogoGithub, IoMdArrowDropdown } from "react-icons/io";
 import LogInButton from "./LogInButton";
 import { CiBurger } from "react-icons/ci";
 import { AuthStatus, authTokensAtom } from "@/store/atoms";
 import Link from "next/link";
 import { useRecoilState } from "recoil";
+import { ArrowLeftSquare } from "lucide-react";
 
 type Props = {};
 
@@ -51,6 +52,12 @@ const Navbar = (props: Props) => {
 						: "bg-black/70 mt-1 text-primary"
 				} items-center w-full flex justify-between transition-all duration-500 md:px-5 px-2 py-1`}
 			>
+				<div className="flex gap-5 items-center ml-5">
+					<Link href="https://github.com/deauthe/playgen-spotify">
+						<IoLogoGithub className="md:text-6xl text-4xl my-auto hover:scale-105 active:scale-90 transition-all duration-200" />
+					</Link>
+					<ArrowLeftSquare className="text-secondary" />
+				</div>
 				<div className="flex gap-2 items-center ml-5">
 					<Link href="/">
 						<div className=" flex items-end gap-2 ">

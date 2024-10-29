@@ -29,5 +29,6 @@ export const useUser = () => {
 		};
 		findUser();
 	}, [accessToken]);
+
 	return { user, loggedIn };
 };
